@@ -2,7 +2,7 @@ var express = require('express');
 const { check } = require("express-validator");
 var router = express.Router();
 const { authController } = require("../controllers");
-const validateFields = require("../middlewares/validate-fields");
+const { validateFields } = require("../middleware/validateFields");
 
 router.post('/login',[
   check('email')
