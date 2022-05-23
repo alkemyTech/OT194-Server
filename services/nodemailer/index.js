@@ -7,8 +7,8 @@ module.exports = {
       port: 465,
       secure: true,
       auth: {
-        user: 'somosfundacionmas.mensajeria@gmail.com',
-        pass: 'kjufymkmserzvbpl',
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
