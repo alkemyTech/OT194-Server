@@ -1,28 +1,29 @@
 const bcryptjs = require('bcryptjs');
-const db = require("../models");
+const User = require("../models").User;
+const generateToken = require('../functions/generateToken');
 
 const login = async(req, res) => {
   const {email, password}  = req.body;
 
   try {
-    const user = await db.User.findOne({
+    const user = await User.findOne({
       where: {
         email
       }
-    })
+    });
     
     if (!user) {
       return res.status(400).json({
         ok: false
-      })
-    }
+      });
+    };
 
     const isPasswordValid = bcryptjs.compareSync(password, user.password);
     if (!isPasswordValid) {
-      return res.status(400).json({
+      return res.status(401).json({
         ok: false
-      })
-    }
+      });
+    };
     
     const loggedUser = {
       firstName: user.firstName,
@@ -30,17 +31,21 @@ const login = async(req, res) => {
       email: user.email,
       image: user.image,
       roleId: user.roleId,
-    }
-    res.status(200).json(loggedUser)
+      token: generateToken(user.user_uuid)
+    };
+
+    res.status(200).json(loggedUser);
+
   } catch (error) {
-    console.log(error);
+    if (req.app.get('env') === 'development') console.log(error);
+
     res.status(500).json({
-      msg: 'Contacta al administrador'
-    }) 
+      message: 'Contacta al administrador'
+    });
   }
 
 }
 
 module.exports = {
   login
-}
+};
