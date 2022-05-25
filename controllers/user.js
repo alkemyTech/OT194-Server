@@ -1,12 +1,13 @@
 const bcryptjs = require('bcryptjs');
-const user = require('../models/user');
+// const user = require('../models/user');
+const User = require("../models").User;
 
 const register = async (req, res) => {
 	const { firstName, lastName, email, password } = req.body;
 
 	try {
 		// Email ya esta registrado?
-		const emailExists = await user.findOne({
+		const emailExists = await User.findOne({
 			where: {
 				email,
 			},
@@ -20,7 +21,7 @@ const register = async (req, res) => {
 
 		const hashedPassword = bcryptjs.hashSync(password, salt);
 
-		const userCreated = await user.create({
+		const userCreated = await User.create({
 			firstName,
 			lastName,
 			email,
@@ -29,11 +30,12 @@ const register = async (req, res) => {
 
 		return res.status(201).json({
 			ok: true,
-			user: {
+			User: {
 				email: userCreated.email,
 			},
 		});
 	} catch (error) {
+		console.log(error)
 		return res.status(500).json({ msg: error });
 	}
 };
