@@ -19,9 +19,7 @@ const login = async(req, res) => {
     };
 
     const isPasswordValid = bcryptjs.compareSync(password, user.password);
-    console.log(isPasswordValid)
     if (!isPasswordValid) {
-      console.log('##################')
       return res.status(401).json({
         ok: false
       });
