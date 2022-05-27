@@ -1,5 +1,5 @@
 'use strict';
-const {  Model} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Organization extends Model {
     /**
@@ -9,15 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
 
     // Did not erase because it may need an association at histories 78 and 79
-    //static associate(models) {
+    // static associate(models) {
     //  // define association here
-    //}
+    // }
   };
   Organization.init({
     name: {
       type: DataTypes.STRING,
       allowNull: false
-    },  
+    },
     // image DataType STRING as it should be an url
     image: {
       type: DataTypes.STRING,
