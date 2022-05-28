@@ -1,9 +1,9 @@
 const bcryptjs = require('bcryptjs');
-const User = require("../models").User;
+const User = require('../models').User;
 const generateToken = require('../functions/generateToken');
 
-const login = async(req, res) => {
-  const {email, password}  = req.body;
+const login = async (req, res) => {
+  const { email, password } = req.body;
 
   try {
     const user = await User.findOne({
@@ -11,7 +11,7 @@ const login = async(req, res) => {
         email
       }
     });
-    
+
     if (!user) {
       return res.status(400).json({
         ok: false
@@ -24,7 +24,7 @@ const login = async(req, res) => {
         ok: false
       });
     };
-    
+
     const loggedUser = {
       firstName: user.firstName,
       lastName: user.lastName,
@@ -35,7 +35,6 @@ const login = async(req, res) => {
     };
 
     res.status(200).json(loggedUser);
-
   } catch (error) {
     if (req.app.get('env') === 'development') console.log(error);
 
@@ -43,8 +42,7 @@ const login = async(req, res) => {
       message: 'Contacta al administrador'
     });
   }
-
-}
+};
 
 module.exports = {
   login
