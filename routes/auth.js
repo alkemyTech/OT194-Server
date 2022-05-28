@@ -1,16 +1,31 @@
 const express = require('express');
+const authRouter = express.Router();
 const { check } = require('express-validator');
-const router = express.Router();
-const { authController } = require('../controllers');
+const { register, login } = require('../controllers/auth');
 const { validateFields } = require('../middleware/validateFields');
 
-router.post('/login', [
+// Register
+authRouter.post('/register', [
   check('email')
-    .isEmail().withMessage('The email does not have a valid format')
-    .not().isEmpty().withMessage('The email is needed'),
-  check('password', 'Password is not valid')
-    .not().isEmpty(),
+    .not().isEmpty().withMessage('Por favor ingrese un email')
+    .isEmail().withMessage('Por favor ingrese un email válido'),
+  check('password')
+    .not().isEmpty().withMessage('Por favor ingrese una contraseña')
+    .isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres'),
+  check('firstName').not().isEmpty().withMessage('Por favor ingrese su nombre'),
+  check('lastName').not().isEmpty().withMessage('Por favor ingrese su apellido'),
   validateFields
-], authController.login);
+], register
+);
 
-module.exports = router;
+// Login
+authRouter.post('/login', [
+  check('email')
+    .not().isEmpty().withMessage('Por favor ingrese un email')
+    .isEmail().withMessage('Por favor ingrese un email válido'),
+  check('password')
+    .not().isEmpty().withMessage('Por favor ingrese una contraseña'),
+  validateFields
+], login);
+
+module.exports = authRouter;
