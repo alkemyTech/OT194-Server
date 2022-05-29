@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../models/index');
+const db = require('../database/models/index');
 const Organization = db.Organization;
 
 router.get('/1/public', async function (req, res, next) {
