@@ -23,6 +23,6 @@ router.post(
   userController.register
 );
 
-router.delete('/:id', userController.delete);
+router.put('/:id', userController.delete);
 
 module.exports = router;
