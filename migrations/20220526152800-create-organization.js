@@ -10,7 +10,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull: false
-      },  
+      },
       // image DataType STRING as it should be an url
       image: {
         type: Sequelize.STRING,
