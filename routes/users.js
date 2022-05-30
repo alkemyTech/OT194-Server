@@ -1,10 +1,10 @@
 const express = require('express');
-const { register } = require('../controllers/user');
 const router = express.Router();
 const { check } = require('express-validator');
 const { validateFields } = require('../middleware/validateFields');
 const { getUser } = require('../controllers/auth');
 const protectRoute = require('../middleware/authentication');
+const userController = require('../controllers/user');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -24,7 +24,9 @@ router.post(
     check('lastName', 'lastName is required').not().isEmpty(),
     validateFields
   ],
-  register
+  userController.register
 );
+
+router.put('/:id', userController.delete);
 
 module.exports = router;

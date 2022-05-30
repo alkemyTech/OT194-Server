@@ -1,10 +1,10 @@
-var express = require('express');
-const { check } = require("express-validator");
-var router = express.Router();
-const { authController } = require("../controllers");
-const { validateFields } = require("../middleware/validateFields");
+const express = require('express');
+const { check } = require('express-validator');
+const router = express.Router();
+const { authController } = require('../controllers');
+const { validateFields } = require('../middleware/validateFields');
 
-router.post('/login',[
+router.post('/login', [
   check('email')
     .isEmail().withMessage('The email does not have a valid format')
     .not().isEmpty().withMessage('The email is needed'),
@@ -14,4 +14,3 @@ router.post('/login',[
 ], authController.login);
 
 module.exports = router;
-
