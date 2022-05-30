@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
 // user = {email,first name, last name,}
-router.get('/auth/me', protectRoute, getUser)
+router.get('/auth/me', protectRoute, getUser);
 
 router.post(
   '/auth/register',

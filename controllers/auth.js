@@ -51,18 +51,17 @@ const login = async (req, res) => {
  */
 
 const getUser = async (req, res) => {
-
-  const { firstName, lastName, email, image, roleId } = req.user
+  const { firstName, lastName, email, image, roleId } = req.user;
   const userData = {
     firstName,
     lastName,
     email,
     image,
     roleId
-  }
+  };
 
-  res.status(200).json(userData)
-}
+  res.status(200).json(userData);
+};
 
 module.exports = {
   login,
