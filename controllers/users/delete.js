@@ -21,4 +21,4 @@ module.exports = async (req, res) => {
   res.status(200).json({
     msg: `User ${id} deleted Sucessfully`
   });
-}
+};
