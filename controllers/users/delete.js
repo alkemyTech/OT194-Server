@@ -22,5 +22,3 @@ module.exports = async (req, res) => {
     msg: `User ${id} deleted Sucessfully`
   });
 }
-
-module.exports = userController;
