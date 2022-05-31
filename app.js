@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const fileUpload = require('express-fileupload');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -13,6 +14,12 @@ const authRouter = require('./routes/auth');
 
 const app = express();
 app.use(cors());
+
+app.use(fileUpload({
+  useTempFiles: true,
+  tempFileDir: '/tmp/',
+  createParentPath: true
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
