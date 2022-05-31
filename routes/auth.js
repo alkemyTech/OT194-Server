@@ -1,8 +1,9 @@
 const express = require('express');
 const authRouter = express.Router();
 const { check } = require('express-validator');
-const { register, login } = require('../controllers/auth');
+const { register, login, getUser } = require('../controllers/auth');
 const { validateFields } = require('../middleware/validateFields');
+const protectRoute = require('../middleware/authentication');
 
 // Register
 authRouter.post('/register', [
@@ -27,5 +28,7 @@ authRouter.post('/login', [
     .not().isEmpty().withMessage('Por favor ingrese una contraseña'),
   validateFields
 ], login);
+
+authRouter.get('/me', protectRoute, getUser);
 
 module.exports = authRouter;

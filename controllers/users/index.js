@@ -1,3 +1,3 @@
 module.exports = {
-  public: require('./delete')
+  delete: require('./delete')
 };
