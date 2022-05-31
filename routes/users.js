@@ -2,12 +2,16 @@ const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
 const { validateFields } = require('../middleware/validateFields');
+const { getUser } = require('../controllers/auth');
+const protectRoute = require('../middleware/authentication');
 const userController = require('../controllers/user');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
+// user = {email,first name, last name,}
+router.get('/auth/me', protectRoute, getUser);
 
 router.post(
   '/auth/register',

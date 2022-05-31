@@ -48,6 +48,26 @@ const login = async (req, res) => {
   // }
 };
 
+/**
+ *
+ * @param {Express.Request} req
+ * @param {Express.Response} res
+ */
+
+const getUser = async (req, res) => {
+  const { firstName, lastName, email, image, roleId } = req.user;
+  const userData = {
+    firstName,
+    lastName,
+    email,
+    image,
+    roleId
+  };
+
+  res.status(200).json(userData);
+};
+
 module.exports = {
-  login
+  login,
+  getUser
 };
