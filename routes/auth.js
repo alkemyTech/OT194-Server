@@ -4,6 +4,7 @@ const { check } = require('express-validator');
 const { register, login, getUser } = require('../controllers/auth');
 const { validateFields } = require('../middleware/validateFields');
 const protectRoute = require('../middleware/authentication');
+const { adminMiddleware } = require('../middleware/adminCheck');
 
 // Register
 authRouter.post('/register', [
@@ -29,6 +30,6 @@ authRouter.post('/login', [
   validateFields
 ], login);
 
-authRouter.get('/me', protectRoute, getUser);
+authRouter.get('/me', protectRoute, adminMiddleware, getUser);
 
 module.exports = authRouter;

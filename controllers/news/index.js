@@ -1,3 +1,4 @@
 module.exports = {
-  news: require('./getNews')
+  news: require('./getNews'),
+  newById: require('./newById')
 };

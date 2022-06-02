@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     // }
   };
   Organization.init({
+    id: {
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false
@@ -34,6 +39,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Organization',
     paranoid: true
-  });
+  })
   return Organization;
 };
