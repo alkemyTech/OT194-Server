@@ -1,5 +1,5 @@
 const { Model } = require('sequelize');
-const organizationModel = require('./Organization');
+const organizationModel = require('../database/models/Organization');
 
 module.exports = (sequelize, DataTypes) => {
   class Slide extends Model {
