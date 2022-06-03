@@ -1,5 +1,5 @@
 const bcryptjs = require('bcryptjs');
-const User = require('../../models').User;
+const User = require('../../database/models').User;
 const generateToken = require('../../functions/generateToken');
 
 module.exports = async (req, res) => {

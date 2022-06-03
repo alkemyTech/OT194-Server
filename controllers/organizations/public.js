@@ -1,4 +1,4 @@
-const db = require('../../models');
+const db = require('../../database/models');
 const Organization = db.Organization;
 
 module.exports = async (req, res, next) => {

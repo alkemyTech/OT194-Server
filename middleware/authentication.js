@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/index').User;
+const User = require('../database/models/index').User;
 
 const protectRoute = async (req, res, next) => {
   let token = '';

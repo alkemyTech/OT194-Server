@@ -1,5 +1,5 @@
 const { Model } = require('sequelize');
-const organizationModel = require('../database/models/Organization');
+const organizationModel = require('../../database/models/Organization');
 
 module.exports = (sequelize, DataTypes) => {
   class Slide extends Model {
@@ -46,5 +46,6 @@ module.exports = (sequelize, DataTypes) => {
     foreignKey: 'organizationId',
     as: 'Organization'
   });
+
   return Slide;
 };
