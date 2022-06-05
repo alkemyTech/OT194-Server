@@ -8,4 +8,6 @@ newsRouter.get('/:id', newsController.newById);
 
 newsRouter.put('/:id', newsController.updateNewById);
 
+newsRouter.delete('/:id', newsController.deleteNew);
+
 module.exports = newsRouter;

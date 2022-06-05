@@ -1,5 +1,6 @@
 module.exports = {
   news: require('./getNews'),
   newById: require('./newById'),
-  updateNewById: require('./updateNewById')
+  updateNewById: require('./updateNewById'),
+  deleteNew: require('./deleteNew')
 };
