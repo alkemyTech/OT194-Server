@@ -2,7 +2,7 @@ const express = require('express');
 const { check } = require('express-validator');
 const { validateFields } = require('../middleware/validateFields');
 const contactsRouter = express.Router();
-const contactsControllers = require('../controllers/organizations');
+const contactsControllers = require('../controllers/contacts');
 
 contactsRouter.post(
 	'/1/public',
@@ -16,7 +16,7 @@ contactsRouter.post(
 		check('name').not().isEmpty().withMessage('Por favor ingrese su nombre'),
 		validateFields,
 	],
-	contactsControllers.public
+	contactsControllers.postContact
 );
 
 module.exports = contactsRouter;
