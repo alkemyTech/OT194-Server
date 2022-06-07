@@ -1,4 +1,4 @@
-const { Entries } = require('../../models');
+const { Entries } = require('../../database/models');
 
 module.exports = async (req, res) => {
   const { id } = req.params;

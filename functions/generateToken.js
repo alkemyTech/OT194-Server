@@ -1,5 +1,5 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
-// const dotenv = require('dotenv').config();
 
 module.exports = (userUUID) => {
   const expiration = '15d';

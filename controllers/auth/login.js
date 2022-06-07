@@ -1,12 +1,18 @@
 const bcryptjs = require('bcryptjs');
-const User = require('../database/models').User;
-const generateToken = require('../functions/generateToken');
+const { User, Role } = require('../../database/models');
+const generateToken = require('../../functions/generateToken');
 
 module.exports = async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const user = await User.findOne({
+      include: [
+        {
+          model: Role,
+          as: 'role'
+        }
+      ],
       where: {
         email
       }
@@ -32,7 +38,10 @@ module.exports = async (req, res) => {
       lastName: user.lastName,
       email: user.email,
       image: user.image,
-      roleId: user.roleId,
+      role: {
+        id: user.role.id,
+        name: user.role.name
+      },
       token: generateToken(user.userUUID)
     };
 
