@@ -39,8 +39,6 @@ module.exports = async (req, res) => {
       token: generateToken(userCreated.userUUID)
     };
 
-    res.status(201).json(createdUser);
-
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const msg = {
@@ -53,7 +51,7 @@ module.exports = async (req, res) => {
     sgMail
       .send(msg)
       .then(() => {
-        res.send('E-mail enviado');
+        res.status(201).json(createdUser);
       })
       .catch((error) => {
         res.send(error);
