@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
 // const dotenv = require('dotenv').config();
 
-module.exports = (userUUID) => {
+module.exports = (id) => {
   const expiration = '15d';
 
-  return jwt.sign({ userUUID }, process.env.JWT_SECRET, {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: expiration
   });
 };

@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
       email,
       image,
       roleId: userCreated.roleId,
-      token: generateToken(userCreated.userUUID)
+      token: generateToken(userCreated.id)
     };
 
     const sgMail = require('@sendgrid/mail');
