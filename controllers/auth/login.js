@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
       email: user.email,
       image: user.image,
       roleId: user.roleId,
-      token: generateToken(user.userUUID)
+      token: generateToken(user.id)
     };
 
     res.status(200).json(loggedUser);
