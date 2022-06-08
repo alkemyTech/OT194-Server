@@ -1,13 +1,23 @@
 const { Activities } = require('../../database/models');
+const { uploadFile } = require('../../helpers/uploadFile');
 
 module.exports = async (req, res) => {
-  // Falta manejar correctamente la carga de la imagen de actividad
-  const { name, image, content } = req.body;
+  /*
+    Falta manejar correctamente la obtencion de la imagen de actividad,
+  */
+  const { name, content } = req.body;
+  const image = req.files.file;
 
   try {
+    let uploadedImage;
+
+    if (image) {
+      uploadedImage = await uploadFile(image);
+    }
+
     const data = {
+      image: uploadedImage.Location ? uploadedImage.Location : '',
       name,
-      image,
       content
     };
 
