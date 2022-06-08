@@ -39,10 +39,10 @@ module.exports = async (req, res) => {
       email: user.email,
       image: user.image,
       role: {
-        id: user.role.id,
+        id: user.roleId,
         name: user.role.name
       },
-      token: generateToken(user.userUUID)
+      token: generateToken(user.id)
     };
 
     res.status(200).json(loggedUser);

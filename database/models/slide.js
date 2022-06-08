@@ -46,5 +46,6 @@ module.exports = (sequelize, DataTypes) => {
     foreignKey: 'organizationId',
     as: 'Organization'
   });
+
   return Slide;
 };

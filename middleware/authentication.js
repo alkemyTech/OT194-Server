@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../database/models').User;
+const User = require('../database/models/index').User;
 
 const protectRoute = async (req, res, next) => {
   let token = '';
@@ -21,7 +21,7 @@ const protectRoute = async (req, res, next) => {
     req.user = await User.findOne({
       raw: true,
       attributes: { exclude: ['password'] },
-      where: { userUUID: decodedToken.userUUID }
+      where: { id: decodedToken.id }
     });
 
     // Check if it was a wrong token or something went wrong
