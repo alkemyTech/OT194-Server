@@ -1,4 +1,4 @@
-const { Activities } = require('../../database/models');
+const { Testimonials } = require('../../database/models');
 const { uploadFile } = require('../../helpers/uploadFile');
 
 module.exports = async (req, res) => {
@@ -21,13 +21,11 @@ module.exports = async (req, res) => {
       content
     };
 
-    const newActivity = Activities.build(data);
-    await newActivity.save();
+    const newTestimony = Testimonials.build(data);
+    await newTestimony.save();
 
-    console.log('create activity', newActivity);
-    res.status(201).json(newActivity);
+    res.status(200).json(newTestimony);
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       message: 'Error del servidor'
     });
