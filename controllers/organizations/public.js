@@ -7,7 +7,25 @@ module.exports = async (req, res, next) => {
     limit: 1
   });
 
-  const { name, image, phone, address, welcomeText } = organizationData[0];
+  const {
+    name,
+    image,
+    phone,
+    address,
+    welcomeText,
+    facebook,
+    linkedin,
+    instagram
+  } = organizationData[0];
 
-  res.status(200).json({ name, image, phone, address, welcomeText });
+  res.status(200).json({
+    name,
+    image,
+    phone,
+    address,
+    welcomeText,
+    facebook,
+    linkedin,
+    instagram
+  });
 };

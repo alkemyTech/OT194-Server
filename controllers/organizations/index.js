@@ -1,3 +1,4 @@
 module.exports = {
-  public: require('./public')
+  public: require('./public'),
+  updateOrg: require('./updateOrg')
 };

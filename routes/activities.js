@@ -12,4 +12,12 @@ activitiesRouter.post('/', [
   validateFields
 ], activitiesController.create);
 
+activitiesRouter.put('/:id', [
+  check('name')
+    .not().isEmpty().withMessage('El nombre es requerido'),
+  check('content')
+    .not().isEmpty().withMessage('El contenido es requerido'),
+  validateFields
+], activitiesController.updateById);
+
 module.exports = activitiesRouter;
