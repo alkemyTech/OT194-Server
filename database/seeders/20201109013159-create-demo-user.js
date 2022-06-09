@@ -22,7 +22,7 @@ module.exports = {
         lastName: 'Demo',
         email: 'admindemo@test.com',
         password: hashedPassword,
-        roleId: 1,
+        roleId: 2,
         image: 'https://www.designevo.com/res/templates/thumb_small/colorful-hand-and-warm-community.png',
         createdAt: new Date(),
         updatedAt: new Date()
