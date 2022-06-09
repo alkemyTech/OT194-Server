@@ -11,4 +11,6 @@ apiRouter.use('/news', require('./news'));
 
 apiRouter.use('/activities', require('./activities'));
 
+apiRouter.use('/testimonials', require('./testimonials'));
+
 module.exports = apiRouter;
