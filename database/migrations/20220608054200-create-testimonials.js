@@ -14,7 +14,7 @@ module.exports = {
       image: Sequelize.STRING,
       content: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(2500)
       },
       deletedAt: {
         type: Sequelize.DATE
