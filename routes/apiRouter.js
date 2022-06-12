@@ -13,4 +13,6 @@ apiRouter.use('/activities', require('./activities'));
 
 apiRouter.use('/contacts', require('./contacts'));
 
+apiRouter.use('/members', require('./members'));
+
 module.exports = apiRouter;
