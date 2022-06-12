@@ -24,4 +24,6 @@ testimonialsRouter.put('/:id',
   validateFields,
   testimonialsController.update);
 
+testimonialsRouter.delete('/:id', testimonialsController.delete);
+
 module.exports = testimonialsRouter;
