@@ -15,4 +15,6 @@ apiRouter.use('/testimonials', require('./testimonials'));
 
 apiRouter.use('/contacts', require('./contacts'));
 
+apiRouter.use('/members', require('./members'));
+
 module.exports = apiRouter;

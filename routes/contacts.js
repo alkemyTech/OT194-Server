@@ -1,9 +1,19 @@
 const express = require('express');
-const router = express.Router();
+const routerContacts = express.Router();
+const contactController = require('../controllers/contacts');
 const protectRoute = require('../middleware/authentication');
 const { adminMiddleware } = require('../middleware/adminCheck');
-const contactController = require('../controllers/contacts');
+const { validateFields } = require('../middleware/validateFields');
+const { check } = require('express-validator');
 
-router.get('/', protectRoute, adminMiddleware, contactController.getAll);
+routerContacts.get('/', protectRoute, adminMiddleware, contactController.getAll);
 
-module.exports = router;
+routerContacts.post('/', [
+  check('email')
+    .not().isEmpty().withMessage('Por favor ingrese un email')
+    .isEmail().withMessage('Por favor ingrese un email válido'),
+  check('name').not().isEmpty().withMessage('Por favor ingrese su nombre'),
+  validateFields
+], contactController.create);
+
+module.exports = routerContacts;
