@@ -1,8 +1,12 @@
 const express = require('express');
 const routerContacts = express.Router();
 const contactController = require('../controllers/contacts');
+const protectRoute = require('../middleware/authentication');
+const { adminMiddleware } = require('../middleware/adminCheck');
 const { validateFields } = require('../middleware/validateFields');
 const { check } = require('express-validator');
+
+routerContacts.get('/', protectRoute, adminMiddleware, contactController.getAll);
 
 routerContacts.post('/', [
   check('email')
