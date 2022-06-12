@@ -9,15 +9,12 @@ module.exports = {
       },
       name: {
         allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      image: {
-        allowNull: false,
         type: Sequelize.STRING
       },
+      image: Sequelize.STRING,
       content: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING(2500)
       },
       deletedAt: {
         type: Sequelize.DATE

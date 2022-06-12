@@ -1,3 +1,4 @@
 module.exports = {
-  create: require('./create')
+  create: require('./createTestimonial'),
+  update: require('./updateTestimonial')
 };
