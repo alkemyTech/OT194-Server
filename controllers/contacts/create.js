@@ -10,7 +10,6 @@ module.exports = async (req, res) => {
       email,
       message
     });
-    console.log(newContact);
     res.status(200).json(newContact);
   } catch (error) {
     res.status(500).json({
