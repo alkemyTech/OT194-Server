@@ -6,9 +6,9 @@ module.exports = async (req, res) => {
   try {
     const newContact = await Contacts.create({
       name,
-      phone: phone !== undefined ? phone : null,
+      phone,
       email,
-      message: message !== undefined ? message : null
+      message
     });
     console.log(newContact);
     res.status(200).json(newContact);
