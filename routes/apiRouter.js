@@ -11,4 +11,10 @@ apiRouter.use('/news', require('./news'));
 
 apiRouter.use('/activities', require('./activities'));
 
+apiRouter.use('/testimonials', require('./testimonials'));
+
+apiRouter.use('/contacts', require('./contacts'));
+
+apiRouter.use('/members', require('./members'));
+
 module.exports = apiRouter;
