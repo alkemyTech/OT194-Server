@@ -1,4 +1,5 @@
 module.exports = {
   create: require('./createTestimonial'),
-  update: require('./updateTestimonial')
+  update: require('./updateTestimonial'),
+  delete: require('./deleteTestimonial')
 };
