@@ -1,6 +1,7 @@
-const { Model } = require('sequelize');
-const organizationModel = require('../../database/models/Organization');
-
+'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Slide extends Model {
     /**
@@ -8,44 +9,26 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-  };
-  Slide.init(
-    {
-      id: {
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.INTEGER
-      },
-      imageUrl: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      text: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      order: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-      organizationId: {
-        allowNull: false,
-        type: DataTypes.INTEGER
-      }
-    },
-    {
-      sequelize,
-      modelName: 'Slide',
-      paranoid: true
+    static associate (models) {
+      Slide.belongsTo(models.Organization, {
+        foreignKey: 'organizationId',
+        as: 'Organization'
+      });
+      Slide.belongsTo(models.Entries, {
+        foreignKey: 'newsId',
+        as: 'slide'
+      });
     }
-  );
-
-  const Organization = organizationModel(sequelize, DataTypes);
-
-  Slide.Organization = Slide.belongsTo(Organization, {
-    foreignKey: 'organizationId',
-    as: 'Organization'
+  };
+  Slide.init({
+    imageUrl: DataTypes.STRING,
+    text: DataTypes.STRING,
+    order: DataTypes.INTEGER,
+    organizationId: DataTypes.INTEGER,
+    newsId: DataTypes.INTEGER
+  }, {
+    sequelize,
+    modelName: 'Slide'
   });
-
   return Slide;
 };
