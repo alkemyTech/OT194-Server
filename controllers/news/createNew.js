@@ -1,13 +1,22 @@
 const { Entries } = require('../../database/models');
+const { uploadFile } = require('../../helpers/uploadFile');
 
 module.exports = async (req, res) => {
-  const { name, content, image, categoryId, deletedAt } = req.body;
+  const { name, content, categoryId, deletedAt } = req.body;
   const type = 'news';
+  const image = (req.files && req.files.file) ? req.files.file : null;
+
   try {
+    if (!image) {
+      return res.status(404).json({
+        message: 'Por favor, ingrese una imagen'
+      });
+    }
+    const uploadedImage = await uploadFile(image);
     const newCreated = await Entries.create({
       name,
       content,
-      image,
+      image: uploadedImage.Location,
       categoryId,
       deletedAt,
       type
