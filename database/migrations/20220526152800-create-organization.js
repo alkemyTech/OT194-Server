@@ -24,6 +24,9 @@ module.exports = {
       facebook: Sequelize.STRING,
       linkedin: Sequelize.STRING,
       instagram: Sequelize.STRING,
+      deletedAt: {
+        type: Sequelize.DATE
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -32,6 +35,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
+
     });
   },
   down: async (queryInterface, Sequelize) => {

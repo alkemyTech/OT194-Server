@@ -10,8 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate (models) {
-      // Todo:
-      // Create associations in Catgory Model
+      Entries.hasMany(models.Slide, { as: 'slide' });
       Entries.belongsTo(models.Category, { as: 'category' });
     }
   };
