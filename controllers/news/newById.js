@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
     const newById = await Entries.findOne({
       raw: true,
       where: { entryUUID }
-    });
+    }, { include: ['slide'] });
 
     if (!newById) {
       return res.status(404).json({
