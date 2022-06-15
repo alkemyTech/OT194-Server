@@ -1,3 +1,4 @@
+require('dotenv').config();
 const bcryptjs = require('bcryptjs');
 const User = require('../../database/models').User;
 const generateToken = require('../../functions/generateToken');
@@ -39,11 +40,17 @@ module.exports = async (req, res) => {
       token: generateToken(userCreated.id)
     };
 
+    console.log('process.env.SENDGRID_API_KEY', process.env.SENDGRID_API_KEY);
+
+    res.status(201).json(createdUser);
+
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const msg = {
       to: email,
-      from: 'SOMOS MAS !',
+      from: {
+        email: 'ongalkemy194@gmail.com'
+      },
       subject: 'Gracias por registrarte con nosotros',
       text: 'Estamos muy felices porque nuestra familia se agranda ! Gracias por ser parte de nosotros',
       html: '<strong>Estamos muy felices porque nuestra familia se agranda !</strong><normal>! Gracias por ser parte de nosotros</normal>'
@@ -54,6 +61,8 @@ module.exports = async (req, res) => {
         res.status(201).json(createdUser);
       })
       .catch((error) => {
+        console.log('error', error.response);
+        console.log('body error', error?.response?.body?.errors);
         res.send(error);
       });
   } catch (error) {
