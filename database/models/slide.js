@@ -15,8 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         as: 'Organization'
       });
       Slide.belongsTo(models.Entries, {
-        foreignKey: 'newsId',
-        as: 'slide'
+        foreignKey: 'newsId'
       });
     }
   };
