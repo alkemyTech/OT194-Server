@@ -2,35 +2,27 @@ const { Entries } = require('../../database/models');
 
 module.exports = async (req, res) => {
   const entryId = req.params.id;
-  const infNewEntry = req.body;
-
+  const newEntry = req.body;
+  console.log(newEntry.name);
   try {
-    let newEntryId = await Entries.findOne({
-      raw: true,
-      where: { id: entryId }
-    });
+    const entryDb = await Entries.findByPk(entryId);
 
-    if (!newEntryId) {
+    if (!entryDb) {
       return res.status(404).json({
         message: `No se encontró una novedad para el id ${entryId}`
       });
-    } else {
-      const updateEntryNew = {
-        name: infNewEntry.name,
-        content: infNewEntry.content,
-        categoryId: infNewEntry.categoryId,
-        type: infNewEntry.type,
-        image: infNewEntry.image
-      };
-
-      await Entries.update(updateEntryNew, { where: { id: entryId } });
-      newEntryId = await Entries.findOne({
-        raw: true,
-        where: { id: entryId }
-      });
-      console.log('updateNew', newEntryId);
-      res.json(newEntryId);
     }
+    const updateEntryNew = {
+      name: newEntry.name,
+      content: newEntry.content,
+      type: newEntry.type,
+      image: newEntry.image
+    };
+
+    await entryDb.update(updateEntryNew);
+
+    console.log(entryDb);
+    res.json(entryDb);
   } catch (error) {
     console.log(error);
     res.status(500).json({
