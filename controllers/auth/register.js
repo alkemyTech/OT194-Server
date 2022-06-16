@@ -1,3 +1,4 @@
+require('dotenv').config();
 const bcryptjs = require('bcryptjs');
 const User = require('../../database/models').User;
 const generateToken = require('../../functions/generateToken');
@@ -39,23 +40,7 @@ module.exports = async (req, res) => {
       token: generateToken(userCreated.id)
     };
 
-    const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    const msg = {
-      to: email,
-      from: 'SOMOS MAS !',
-      subject: 'Gracias por registrarte con nosotros',
-      text: 'Estamos muy felices porque nuestra familia se agranda ! Gracias por ser parte de nosotros',
-      html: '<strong>Estamos muy felices porque nuestra familia se agranda !</strong><normal>! Gracias por ser parte de nosotros</normal>'
-    };
-    sgMail
-      .send(msg)
-      .then(() => {
-        res.status(201).json(createdUser);
-      })
-      .catch((error) => {
-        res.send(error);
-      });
+    res.status(201).json(createdUser);
   } catch (error) {
     if (req.app.get('env') === 'development') console.log(error);
 
@@ -63,4 +48,23 @@ module.exports = async (req, res) => {
       message: 'Error del servidor, contacte al administrador'
     });
   }
+  const sgMail = require('@sendgrid/mail');
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const msg = {
+    to: email,
+    from: {
+      email: process.env.SENGRID_MAIL
+    },
+    subject: 'Gracias por registrarte con nosotros',
+    text: 'Estamos muy felices porque nuestra familia se agranda ! Gracias por ser parte de nosotros',
+    html: '<strong>Estamos muy felices porque nuestra familia se agranda !</strong><normal>! Gracias por ser parte de nosotros</normal>'
+  };
+  sgMail
+    .send(msg)
+    .then(() => {
+    })
+    .catch((error) => {
+      if (req.app.get('env') === 'development') console.log('error', error.response);
+      if (req.app.get('env') === 'development') console.log('body error', error?.response?.body?.errors);
+    });
 };
