@@ -26,3 +26,6 @@ npx sequelize-cli db:seed:all
 ``` bash
 npm start
 ```
+5) Test Mocha y chai: 
+npm test para correr todos los test 
+npm test npm test test/rutaArchivo para correr solo un archivo
