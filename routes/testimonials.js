@@ -6,6 +6,10 @@ const { validateFields } = require('../middleware/validateFields');
 const { adminMiddleware } = require('../middleware/adminCheck');
 const protectRoute = require('../middleware/authentication');
 
+testimonialsRouter.get('/:id', testimonialsController.getOne);
+
+testimonialsRouter.get('/', testimonialsController.getAll);
+
 testimonialsRouter.post('/',
   check('name').not().isEmpty().withMessage('Por favor ingrese un nombre'),
   check('content')

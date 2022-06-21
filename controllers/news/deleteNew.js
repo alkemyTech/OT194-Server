@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
       });
     }
 
-    await Entries.deleteOne({
+    await Entries.destroy({
       where: { id }
     });
 
