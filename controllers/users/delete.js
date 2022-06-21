@@ -2,7 +2,7 @@ const db = require('../../database/models');
 const User = db.User;
 
 module.exports = async (req, res) => {
-  const id = req.params.id;
+  const id = req.user.id;
   try {
     await User.update(
       {
@@ -19,6 +19,6 @@ module.exports = async (req, res) => {
     return res.status(500).json({ msg: error });
   }
   res.status(200).json({
-    msg: `User ${id} deleted Sucessfully`
+    msg: 'User  deleted Sucessfully'
   });
 };
