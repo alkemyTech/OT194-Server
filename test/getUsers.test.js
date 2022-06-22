@@ -37,7 +37,7 @@ describe('Obtener todos los usuarios: ', () => {
             });
     })
 
-    it.only('Deberia hacer login con usuario No admin y obtener acceso denegado', (done) => {
+    it('Deberia hacer login con usuario No admin y obtener acceso denegado', (done) => {
         chai.request(server)
             .post('/api/v1/auth/login')
             .send(userNotAdminMock)
