@@ -7,13 +7,13 @@ chai.use(chaiHttp)
 
 describe('Contact - Test Endpoint', () => {
   //user token
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNmYjAwZWE2LWVkYmItNDkwMS04M2M3LWY2NTU2MGIxZDUwNSIsImlhdCI6MTY1NTg0Njk3NSwiZXhwIjoxNjU3MTQyOTc1fQ.QgcMOtFca0Ba6Mc_RxGe_4d4JwcqDTNwss106Mp8vTM'
+//   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNmYjAwZWE2LWVkYmItNDkwMS04M2M3LWY2NTU2MGIxZDUwNSIsImlhdCI6MTY1NTg0Njk3NSwiZXhwIjoxNjU3MTQyOTc1fQ.QgcMOtFca0Ba6Mc_RxGe_4d4JwcqDTNwss106Mp8vTM'
   //admin token
-//   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNmYjAwZWE2LWVkYmItNDkwMS04M2M3LWY2NTU2MGIxZDUwNSIsImlhdCI6MTY1NTg2MDY5NiwiZXhwIjoxNjU3MTU2Njk2fQ.WwN9qm04-MbizMYIIZNg_Jw8HRx8Q6GP7-yzFvF1SGA';
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNmYjAwZWE2LWVkYmItNDkwMS04M2M3LWY2NTU2MGIxZDUwNSIsImlhdCI6MTY1NTg2MDY5NiwiZXhwIjoxNjU3MTU2Njk2fQ.WwN9qm04-MbizMYIIZNg_Jw8HRx8Q6GP7-yzFvF1SGA';
   
   const url = 'http://localhost:8080/api/v1';
   const body = {
-    name: 'Prueba',
+    name: 15646,
     phone: 8155990887,
     email: 'fbussons3@live.com',
     message: 'platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem quisque ut erat curabitur gravida nisi at nibh in'
@@ -33,6 +33,7 @@ describe('Contact - Test Endpoint', () => {
             res.body.name.should.be.a('string');
             res.body.should.have.property('email');
             res.body.email.should.be.a('string');
+            res.body.message.should.be.a('string');
             done()
         });
     });
