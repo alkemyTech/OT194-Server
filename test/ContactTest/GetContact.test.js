@@ -29,7 +29,7 @@ describe('Contact GET - Test Endpoint', () => {
       });
   });
 
-  it('Debera devolver 403 y no traer data cuando el token es invalido', (done) => {
+  it('Debera devolver 401 y no traer data cuando el token es invalido', (done) => {
     chai
       .request(url)
       .get('/contacts')
