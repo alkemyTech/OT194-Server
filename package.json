@@ -6,7 +6,13 @@
     "start": "node ./bin/www",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "cross-env NODE_ENV=test mocha --timeout 10000",
+    "testDBCreate": "npx cross-env NODE_ENV=test sequelize-cli db:create",
+    "testDBMigrate": "npx cross-env NODE_ENV=test sequelize-cli db:migrate",
+    "testDBUndoMigrate": "npx cross-env NODE_ENV=test sequelize-cli db:migrate:undo",
+    "testDBSeeds": "npx cross-env NODE_ENV=test sequelize-cli db:seed:all",
+    "testDBUndoSeeds": "npx cross-env NODE_ENV=test sequelize-cli db:seed:undo:all"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
@@ -14,6 +20,8 @@
     "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "custom-env": "^2.0.1",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
     "ejs": "~2.6.1",
@@ -30,6 +38,9 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "dirty-chai": "^2.0.1",
     "eslint": "^8.16.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
@@ -40,6 +51,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.30.0",
     "husky": "^8.0.1",
+    "mocha": "^10.0.0",
     "sequelize-cli": "^6.2.0"
   }
 }
