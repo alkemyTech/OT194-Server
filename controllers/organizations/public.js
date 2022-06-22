@@ -1,31 +1,28 @@
-const db = require('../../database/models');
-const Organization = db.Organization;
+const { Organization } = require('../../database/models');
 
 module.exports = async (req, res, next) => {
-  const organizationData = await Organization.findAll({
-    raw: true,
-    limit: 1
-  });
+  try {
+    const organizationData = await Organization.findAll({
+      attributes: {
+        exclude: ['id', 'deletedAt', 'createdAt', 'updatedAt']
+      },
+      raw: true,
+      limit: 1
 
-  const {
-    name,
-    image,
-    phone,
-    address,
-    welcomeText,
-    facebook,
-    linkedin,
-    instagram
-  } = organizationData[0];
+    });
 
-  res.status(200).json({
-    name,
-    image,
-    phone,
-    address,
-    welcomeText,
-    facebook,
-    linkedin,
-    instagram
-  });
+    if (!organizationData[0]) {
+      return res.status(404).json({
+        message: 'No se encontró la información de la organización'
+      });
+    };
+
+    res.status(200).json(organizationData[0]);
+  } catch (error) {
+    if (req.app.get('env') === 'development') console.log(error);
+
+    res.status(500).json({
+      message: 'Error del servidor, contacte al administrador'
+    });
+  }
 };
