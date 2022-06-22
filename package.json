@@ -7,7 +7,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "prepare": "husky install",
-    "test": "mocha"
+    "test": "mocha --recursive"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
