@@ -6,7 +6,11 @@ const should = chai.should()
 chai.use(chaiHttp)
 
 describe('Contact - Test Endpoint', () => {
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNmYjAwZWE2LWVkYmItNDkwMS04M2M3LWY2NTU2MGIxZDUwNSIsImlhdCI6MTY1NTg2MDY5NiwiZXhwIjoxNjU3MTU2Njk2fQ.WwN9qm04-MbizMYIIZNg_Jw8HRx8Q6GP7-yzFvF1SGA';
+  //user token
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNmYjAwZWE2LWVkYmItNDkwMS04M2M3LWY2NTU2MGIxZDUwNSIsImlhdCI6MTY1NTg0Njk3NSwiZXhwIjoxNjU3MTQyOTc1fQ.QgcMOtFca0Ba6Mc_RxGe_4d4JwcqDTNwss106Mp8vTM'
+  //admin token
+//   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNmYjAwZWE2LWVkYmItNDkwMS04M2M3LWY2NTU2MGIxZDUwNSIsImlhdCI6MTY1NTg2MDY5NiwiZXhwIjoxNjU3MTU2Njk2fQ.WwN9qm04-MbizMYIIZNg_Jw8HRx8Q6GP7-yzFvF1SGA';
+  
   const url = 'http://localhost:8080/api/v1';
   const body = {
     name: 'Prueba',
@@ -22,7 +26,7 @@ describe('Contact - Test Endpoint', () => {
         .auth(`${token}`, { type: 'bearer' })
         .send(body)
         .end((err, res) => {
-            expect(res, 'No retorno status 200').to.have.status(200);
+            res.should.have.status(200);
             res.body.should.have.property('id');
             res.body.id.should.be.a('number');
             res.body.should.have.property('name');
@@ -42,8 +46,8 @@ describe('Contact - Test Endpoint', () => {
         .end((err, res)=>{
             res.should.have.status(200);
             res.body.should.be.a('array');
+            done()
         })
-        done()
     })
   })
 });
