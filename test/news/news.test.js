@@ -4,26 +4,54 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
 describe('News - Endpoint tests', function () {
-  let adminToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNmYjAwZWE2LWVkYmItNDkwMS04M2M3LWY2NTU2MGIxZDUwNSIsImlhdCI6MTY1NTg0Njk3NSwiZXhwIjoxNjU3MTQyOTc1fQ.QgcMOtFca0Ba6Mc_RxGe_4d4JwcqDTNwss106Mp8vTM";
-  let userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE1ZWQyNzE1LTFhNmUtNDc0My1hYmJhLTYwNmU1ZWY4M2RkZSIsImlhdCI6MTY1NTkxNjQ5OCwiZXhwIjoxNjU3MjEyNDk4fQ.Zxyt5A83B_o8NmlBJ6eM_qDmmR0QtlujKASSUg92NS0";
+  const adminData = {
+    email: 'admindemo@test.com',
+    password: '123456'
+  }
+  const userData = {
+    email: 'usuariodemo@test.com',
+    password: '123456'
+  }
+
   const url = 'http://localhost:8080/api/v1';
   const body = {
     name: "NoticiaTest1",
-    content: "Cupidatat labore incididunt cupidatat ea reprehenderit irure ullamco. Anim qui amet consectetur cillum cupidatat. Dolore laboris dolore anim ut cillum commodo laborum cupidatat. Incididunt pariatur in sunt Lorem laborum est qui nostrud laboris labore mollit et id. Labore voluptate anim deserunt dolor est excepteur ullamco veniam. Labore fugiat amet excepteur elit excepteur nisi laboris aliqua qui esse duis. Irure aute pariatur incididunt sunt anim non ex non labore officia quis minim. Et irure exercitation qui esse do mollit sit quis nostrud. Aliqua sit dolore qui ex velit nulla minim amet. Ullamco adipisicing fugiat sit eu labore voluptate nostrud amet mollit amet ullamco ea occaecat. Veniam aute nisi est pariatur aute labore reprehenderit adipisicing esse irure consequat.",
+    content: "Cupidatat labore incididunt cupidatat ea reprehenderit irure ullamco.",
   }
+
+  let adminToken;
+  let userToken;
   let newsId;
 
-  before( function () {
+  // Preparacion necesaria para el test
+  before( async () => {
+    // Inicia sesion de administrador y guarda el token
+    await chai.request(url)
+      .post('/auth/login')
+      .send(adminData)
+      .then(function (result) {
+          adminToken = result.body.token;
+        })
+
+
+    // Inicia sesion de usuario y guarda el token
+    await chai.request(url)
+      .post('/auth/login')
+      .send(userData)
+      .then(function (result) {
+        userToken = result.body.token;
+      })
+
     // Crea una novedad la cual se usara para modificar y eliminar
-    chai.request(url)
+    await chai.request(url)
       .post('/news')
       .type('form')
       .auth(`${adminToken}`, { type: 'bearer' })
-      .attach('file', './test/news.jpeg', 'news.jpeg')
+      .attach('file', './test/news/news.jpeg', 'news.jpeg')
       .field('name', body.name)
       .field('content', body.content)
-      .end( function (err, res) {
-        newsId = res.body.id
+      .then( function (result) {
+        newsId = result.body.id
       })
   });
   
@@ -33,7 +61,7 @@ describe('News - Endpoint tests', function () {
       .post('/news')
       .type('form')
       .auth(`${adminToken}`, { type: 'bearer' })
-      .attach('file', './test/news.jpeg', 'news.jpeg')
+      .attach('file', './test/news/news.jpeg', 'news.jpeg')
       .field('name', body.name)
       .field('content', body.content)
       .end( function (err, res) {
@@ -64,7 +92,7 @@ describe('News - Endpoint tests', function () {
         .post('/news')
         .type('form')
         .auth(`${adminToken}`, { type: 'bearer' })
-        .attach('file', './test/news.jpeg', 'news.jpeg')
+        .attach('file', './test/news/news.jpeg', 'news.jpeg')
         .field('content', body.content)
         .end( function (err, res) {
           expect(res, 'Status incorrecto').to.have.status(400)
@@ -77,7 +105,7 @@ describe('News - Endpoint tests', function () {
         .post('/news')
         .type('form')
         .auth(`${adminToken}`, { type: 'bearer' })
-        .attach('file', './test/news.jpeg', 'news.jpeg')
+        .attach('file', './test/news/news.jpeg', 'news.jpeg')
         .field('name', body.name)
         .end( function (err, res) {
           expect(res, 'Status incorrecto').to.have.status(400)
@@ -89,7 +117,7 @@ describe('News - Endpoint tests', function () {
       chai.request(url)
         .post('/news')
         .type('form')
-        .attach('file', './test/news.jpeg', 'news.jpeg')
+        .attach('file', './test/news/news.jpeg', 'news.jpeg')
         .field('name', body.name)
         .end( function (err, res) {
           expect(res, 'Status incorrecto').to.have.status(401)
@@ -102,7 +130,7 @@ describe('News - Endpoint tests', function () {
         .post('/news')
         .type('form')
         .auth(`${userToken}`, { type: 'bearer' })
-        .attach('file', './test/news.jpeg', 'news.jpeg')
+        .attach('file', './test/news/news.jpeg', 'news.jpeg')
         .field('name', body.name)
         .end( function (err, res) {
           expect(res, 'Status incorrecto').to.have.status(403)
@@ -165,7 +193,7 @@ describe('News - Endpoint tests', function () {
         .put(`/news/${newsId}`)
         .type('form')
         .auth(`${adminToken}`, { type: 'bearer' })
-        .attach('file', './test/news.jpeg', 'news.jpeg')
+        .attach('file', './test/news/news.jpeg', 'news.jpeg')
         .field('name', body.name)
         .field('content', body.content)
         .end( function (err, res) {
@@ -196,7 +224,7 @@ describe('News - Endpoint tests', function () {
         .put(`/news/${newsId}`)
         .type('form')
         .auth(`${adminToken}`, { type: 'bearer' })
-        .attach('file', './test/news.jpeg', 'news.jpeg')
+        .attach('file', './test/news/news.jpeg', 'news.jpeg')
         .field('content', body.content)
         .end( function (err, res) {
           expect(res, 'Status incorrecto').to.have.status(400)
@@ -209,7 +237,7 @@ describe('News - Endpoint tests', function () {
         .put(`/news/${newsId}`)
         .type('form')
         .auth(`${adminToken}`, { type: 'bearer' })
-        .attach('file', './test/news.jpeg', 'news.jpeg')
+        .attach('file', './test/news/news.jpeg', 'news.jpeg')
         .field('name', body.name)
         .end( function (err, res) {
           expect(res, 'Status incorrecto').to.have.status(400)
