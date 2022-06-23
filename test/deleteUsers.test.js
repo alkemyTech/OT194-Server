@@ -37,7 +37,7 @@ describe('Eliminar usuario: ', () => {
             })
     })
 
-    it.only('Deberia hacer login y obtener acceso denegado', (done) => {
+    it('Deberia hacer login y obtener acceso denegado', (done) => {
         chai.request(server)
             .post('/api/v1/auth/login')
             .send(userNotAdminMock)
