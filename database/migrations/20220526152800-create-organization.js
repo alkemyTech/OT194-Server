@@ -18,7 +18,7 @@ module.exports = {
       phone: Sequelize.STRING,
       address: Sequelize.STRING,
       welcomeText: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(2500),
         allowNull: false
       },
       facebook: Sequelize.STRING,
