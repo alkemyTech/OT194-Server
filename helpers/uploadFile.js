@@ -17,10 +17,10 @@ const uploadFile = async (file) => {
 
   try {
     const data = await s3.upload(uploadParams).promise();
-    console.log('Success', data);
+    // console.log('Success', data);
     return data;
   } catch (err) {
-    console.log('Error', err);
+    // console.log('Error', err);
   }
 };
 // run();
