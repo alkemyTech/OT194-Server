@@ -2,23 +2,16 @@ const db = require('../../database/models');
 const User = db.User;
 
 module.exports = async (req, res) => {
-  const id = req.user.id;
+  const id = req.params.id;
   try {
-    await User.update(
+    await User.destroy(
       {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        image: '',
-        deletedAt: Date.now()
-      }, {
         where: { id }
       });
   } catch (error) {
     return res.status(500).json({ msg: error });
   }
   res.status(200).json({
-    msg: 'User  deleted Sucessfully'
+    msg: `User ${id} deleted Sucessfully`
   });
 };
