@@ -1,6 +1,7 @@
 const db = require('../../database/models');
 const User = db.User;
 module.exports = async (req, res) => {
+  console.log('====>', process.env.NODE_ENV);
   try {
     const users = await User.findAll({
       raw: true,

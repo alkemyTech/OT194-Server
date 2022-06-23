@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
-require('dotenv').config();
+require('custom-env').env();
 
 const app = express();
 app.use(cors());
