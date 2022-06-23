@@ -81,6 +81,21 @@ module.exports = () => {
       });
   });
 
+  describe('Missing credentials', () => {
+    it('It should response with a 401 status code with a message as JSON',
+      async () => {
+        const response = await chai.request(server)
+          .put(putRoute)
+          .field('name', updateName)
+          .field('welcomeText', updateWelcomeText)
+          .attach('file', fs.readFileSync(filePath));
+
+        response.should.have.status(401);
+        response.body.should.be.an('object');
+        response.body.should.have.property('message').that.is.an('string');
+      });
+  });
+
   describe('Missing name field at request', () => {
     it('It should response with a 400 status code with a message as JSON',
       async () => {
