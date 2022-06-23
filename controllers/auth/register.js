@@ -1,4 +1,3 @@
-require('dotenv').config();
 const bcryptjs = require('bcryptjs');
 const User = require('../../database/models').User;
 const generateToken = require('../../functions/generateToken');
