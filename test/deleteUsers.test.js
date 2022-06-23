@@ -27,7 +27,7 @@ describe('Eliminar usuario: ', () => {
                 const token = res.body.token;
 
                 chai.request(server)
-                    .put('/api/v1/users/5e89368e-8d19-43d2-a4f0-e5658eb56180')
+                    .del('/api/v1/users/5e89368e-8d19-43d2-a4f0-e5658eb56180')
                     .set('Authorization', 'Bearer ' + token)
                     .end(function (err, res) {
                         expect(res).to.have.status(200);
@@ -47,7 +47,7 @@ describe('Eliminar usuario: ', () => {
                 const token = res.body.token;
 
                 chai.request(server)
-                    .put('/api/v1/users/5e89368e-8d19-43d2-a4f0-e5658eb56180')
+                    .del('/api/v1/users/5e89368e-8d19-43d2-a4f0-e5658eb56180')
                     .set('Authorization', 'Bearer ' + token)
                     .end(function (err, res) {
                         console.log('=====>', res.body)
