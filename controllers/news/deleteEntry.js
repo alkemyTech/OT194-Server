@@ -3,23 +3,18 @@ const { Entries } = require('../../database/models');
 module.exports = async (req, res) => {
   const { id } = req.params;
   try {
-    const newToDelete = await Entries.findOne({
-      raw: true,
-      where: { id }
-    });
+    const entryDb = await Entries.findByPk(id);
 
-    if (!newToDelete) {
+    if (!entryDb) {
       return res.status(404).json({
-        message: `No se encontró una novedad para el id ${id}`
+        message: `No se encontró una novedad con el ID ${id}`
       });
     }
 
-    await Entries.destroy({
-      where: { id }
-    });
+    await entryDb.destroy();
 
     res.status(200).json({
-      message: `Se elimino la novedad con el id ${id}`
+      message: `Se elimino la novedad con el ID ${id}`
     });
   } catch (error) {
     res.status(500).json({

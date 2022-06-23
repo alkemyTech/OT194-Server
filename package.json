@@ -7,7 +7,6 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "prepare": "husky install",
-    "test": "mocha --recursive"
     "test": "cross-env NODE_ENV=test mocha --timeout 10000",
     "testDBCreate": "npx cross-env NODE_ENV=test sequelize-cli db:create",
     "testDBMigrate": "npx cross-env NODE_ENV=test sequelize-cli db:migrate",
