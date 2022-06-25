@@ -8,9 +8,7 @@ module.exports = async (req, res) => {
   try {
     // Email ya esta registrado?
     const emailExists = await User.findOne({
-      where: {
-        email
-      }
+      where: { email }
     });
 
     if (emailExists) {
@@ -31,6 +29,7 @@ module.exports = async (req, res) => {
     });
 
     const createdUser = {
+      id: userCreated.id,
       firstName,
       lastName,
       email,

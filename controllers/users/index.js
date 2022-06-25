@@ -1,4 +1,5 @@
 module.exports = {
   delete: require('./delete'),
-  getAllUsers: require('./getAllUsers')
+  getAllUsers: require('./getAllUsers'),
+  updateUser: require('./updateUser')
 };

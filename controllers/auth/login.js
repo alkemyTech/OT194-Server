@@ -7,13 +7,14 @@ module.exports = async (req, res) => {
 
   try {
     const user = await User.findOne({
-      where: {
-        email
-      }
+      attributes: {
+        exclude: ['deletedAt', 'createdAt', 'updatedAt']
+      },
+      where: { email }
     });
 
     if (!user) {
-      return res.status(400).json({
+      return res.status(404).json({
         ok: false,
         message: 'No hay un usuario registrado con ese email'
       });
@@ -27,12 +28,9 @@ module.exports = async (req, res) => {
       });
     };
 
+    delete user.dataValues.password;
     const loggedUser = {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      image: user.image,
-      roleId: user.roleId,
+      ...user.dataValues,
       token: generateToken(user.id)
     };
 
