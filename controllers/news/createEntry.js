@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
   try {
     if (!image) {
       return res.status(400).json({
-        message: 'Por favor, complete todos los datos requeridos.'
+        message: 'La imagen es requerida.'
       });
     }
 

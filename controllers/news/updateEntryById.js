@@ -3,7 +3,7 @@ const { uploadFile } = require('../../helpers/uploadFile');
 
 module.exports = async (req, res) => {
   const entryId = req.params.id;
-  const { name, content } = req.body;
+  const { name, content, image: imageBdy } = req.body;
   const image = (req.files && req.files.file) ? req.files.file : null;
 
   try {
@@ -15,18 +15,21 @@ module.exports = async (req, res) => {
       });
     }
 
-    if (!image) {
+    if (!imageBdy && !image) {
       return res.status(400).json({
-        message: 'Por favor, complete todos los datos requeridos.'
+        message: 'La imagen es requerida.'
       });
     }
 
-    const uploadedImage = await uploadFile(image);
+    let uploadedImage;
+    if (image) {
+      uploadedImage = await uploadFile(image);
+    }
 
     const data = {
       name,
       content,
-      image: uploadedImage.Location
+      image: uploadedImage?.Location ? uploadedImage?.Location : imageBdy
     };
 
     await entryDb.update(data);

@@ -29,10 +29,10 @@ newsRouter.post('/', [
   adminMiddleware,
   check('name')
     .not().isEmpty().withMessage('Por favor ingrese un nombre')
-    .isLength({ min: 3 }),
+    .isLength({ min: 3, max: 240 }),
   check('content')
     .not().isEmpty().withMessage('Por favor ingrese un contenido')
-    .isLength({ min: 5 }),
+    .isLength({ min: 3, max: 240 }),
   validateFields
 ], newsController.createEntry);
 

@@ -6,30 +6,37 @@ module.exports = async (req, res) => {
     Falta manejar correctamente la obtencion de la imagen de actividad,
   */
   const { id } = req.params;
-  const { name, content } = req.body;
-  const image = req.files.file;
-  let uploadedImage;
+  const { name, content, image: imageBdy } = req.body;
+  const image = (req.files && req.files.file) ? req.files.file : null;
 
   try {
     const activityDB = await Activities.findByPk(id);
 
     if (!activityDB) {
-      res.status(404).json('La actividad solicitada no fue encontrada');
+      return res.status(404).json({
+        message: `No se encontró una actividad con el ID ${id}`
+      });
     }
 
+    if (!imageBdy && !image) {
+      return res.status(400).json({
+        message: 'La imagen es requerida.'
+      });
+    }
+
+    let uploadedImage;
     if (image) {
       uploadedImage = await uploadFile(image);
     }
 
     const data = {
-      image: uploadedImage.Location ? uploadedImage.Location : '',
       name,
-      content
+      content,
+      image: uploadedImage?.Location ? uploadedImage?.Location : imageBdy
     };
 
     await activityDB.update(data);
 
-    console.log('update activity', activityDB);
     res.status(200).json(activityDB);
   } catch (error) {
     console.log(error);
