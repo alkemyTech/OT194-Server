@@ -1,11 +1,20 @@
 const express = require('express');
-const router = express.Router();
-const userController = require('../controllers/users');
-const { adminMiddleware } = require('../middleware/adminCheck');
+const { check } = require('express-validator');
+const usersRouter = express.Router();
+const usersController = require('../controllers/users');
 const protectRoute = require('../middleware/authentication');
+const { adminMiddleware } = require('../middleware/adminCheck');
+const { validateFields } = require('../middleware/validateFields');
 
-router.delete('/:id', protectRoute, adminMiddleware, userController.delete);
+usersRouter.delete('/:id', protectRoute, usersController.delete);
 
-router.get('/', protectRoute, adminMiddleware, userController.getAllUsers);
+usersRouter.get('/', protectRoute, adminMiddleware, usersController.getAllUsers);
 
-module.exports = router;
+usersRouter.put('/:id',
+  protectRoute,
+  check('firstName').not().isEmpty().withMessage('Por favor ingrese un nombre'),
+  check('lastName').not().isEmpty().withMessage('Por favor ingrese un apellido'),
+  validateFields,
+  usersController.updateUser);
+
+module.exports = usersRouter;
