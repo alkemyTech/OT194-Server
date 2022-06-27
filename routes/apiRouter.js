@@ -9,6 +9,8 @@ apiRouter.use('/users', require('./users'));
 
 apiRouter.use('/news', require('./news'));
 
+apiRouter.use('/slides', require('./slides'));
+
 apiRouter.use('/activities', require('./activities'));
 
 apiRouter.use('/testimonials', require('./testimonials'));
