@@ -2,9 +2,6 @@ const { Activities } = require('../../database/models');
 const { uploadFile } = require('../../helpers/uploadFile');
 
 module.exports = async (req, res) => {
-  /*
-    Falta manejar correctamente la obtencion de la imagen de actividad,
-  */
   const { id } = req.params;
   const { name, content, image: imageBdy } = req.body;
   const image = (req.files && req.files.file) ? req.files.file : null;
@@ -20,7 +17,7 @@ module.exports = async (req, res) => {
 
     if (!imageBdy && !image) {
       return res.status(400).json({
-        message: 'La imagen es requerida.'
+        message: 'Por favor envíe una imagen'
       });
     }
 
@@ -39,9 +36,10 @@ module.exports = async (req, res) => {
 
     res.status(200).json(activityDB);
   } catch (error) {
-    console.log(error);
+    if (process.env.NODE_ENV === 'development') console.log(error);
+
     res.status(500).json({
-      message: 'Error del servidor'
+      message: 'Error del servidor, contacte al administrador'
     });
   };
 };

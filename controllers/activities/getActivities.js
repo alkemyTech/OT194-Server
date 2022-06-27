@@ -6,13 +6,14 @@ module.exports = async (req, res) => {
 
     if (!activities) {
       return res.status(404).json({
-        message: 'No se encontraron novedades'
+        message: 'No se encontraron actividades'
       });
     };
 
     res.status(200).json(activities);
   } catch (error) {
-    console.log(error.message);
+    if (process.env.NODE_ENV === 'development') console.log(error);
+
     res.status(500).json({
       message: 'Error del servidor, contacte al administrador'
     });

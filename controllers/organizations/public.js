@@ -8,7 +8,6 @@ module.exports = async (req, res, next) => {
       },
       raw: true,
       limit: 1
-
     });
 
     if (!organizationData[0]) {

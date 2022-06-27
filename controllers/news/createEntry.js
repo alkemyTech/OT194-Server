@@ -9,11 +9,12 @@ module.exports = async (req, res) => {
   try {
     if (!image) {
       return res.status(400).json({
-        message: 'La imagen es requerida.'
+        message: 'Por favor envíe una imagen'
       });
     }
 
     const uploadedImage = await uploadFile(image);
+
     const data = await Entries.create({
       name,
       content,
@@ -21,13 +22,11 @@ module.exports = async (req, res) => {
       categoryId: 2, // Las categorias no estan implementadas, debe corregirse el modelo de News.
       type
     });
-    if (!data) {
-      return res.status(404).json({
-        message: 'Surgio un problema con el servidor, comuniquese con el Administrador '
-      });
-    };
+
     res.status(201).json(data);
   } catch (error) {
+    if (process.env.NODE_ENV === 'development') console.log(error);
+
     res.status(500).json({
       message: 'Error del servidor, contacte al administrador'
     });

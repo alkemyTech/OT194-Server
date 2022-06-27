@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       content: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(2500)
       },
       image: {
         type: Sequelize.STRING

@@ -11,13 +11,13 @@ module.exports = async (req, res) => {
 
     if (!entryDb) {
       return res.status(404).json({
-        message: `No se encontró una novedad con el ID ${entryId}`
+        message: 'No se encontró una novedad con el ID enviado'
       });
     }
 
     if (!imageBdy && !image) {
       return res.status(400).json({
-        message: 'La imagen es requerida.'
+        message: 'Por favor envíe una imagen'
       });
     }
 
@@ -35,8 +35,10 @@ module.exports = async (req, res) => {
     await entryDb.update(data);
     res.status(200).json(entryDb);
   } catch (error) {
+    if (process.env.NODE_ENV === 'development') console.log(error);
+
     res.status(500).json({
-      message: 'Error del servidor'
+      message: 'Error del servidor, contacte al administrador'
     });
   }
 };

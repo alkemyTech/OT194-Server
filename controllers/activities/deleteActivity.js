@@ -10,13 +10,13 @@ module.exports = async (req, res) => {
 
     if (!activityById) {
       return res.status(404).json({
-        message: `No se encontró un testimonio para el id ${id}`
+        message: 'No se encontró una actividad para el id enviado'
       });
     };
 
     await activityById.destroy();
 
-    res.status(200).json({ message: 'El testimonio fue eliminado' });
+    res.status(200).json({ message: 'La actividad fue eliminada' });
   } catch (error) {
     if (req.app.get('env') === 'development') console.log(error);
 

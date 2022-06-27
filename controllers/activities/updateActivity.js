@@ -5,17 +5,16 @@ module.exports = async (req, res) => {
   const id = req.params.id;
   const { name, content } = req.body;
   const image = (req.files && req.files.file) ? req.files.file : null;
-  let uploadedImage;
-
-  if (image) {
-    try {
-      uploadedImage = await uploadFile(image);
-    } catch (error) {
-      if (req.app.get('env') === 'development') console.log(error);
-    }
-  }
 
   try {
+    if (!image) {
+      return res.status(400).json({
+        message: 'Por favor envíe una imagen'
+      });
+    }
+
+    const uploadedImage = await uploadFile(image);
+
     const activityById = await Activity.findOne({
       where: { id }
     });
@@ -27,7 +26,7 @@ module.exports = async (req, res) => {
     };
 
     activityById.name = name;
-    if (image && uploadedImage && uploadedImage.Location) {
+    if (uploadedImage?.Location) {
       activityById.image = uploadedImage.Location;
     };
     activityById.content = content;
@@ -36,7 +35,7 @@ module.exports = async (req, res) => {
 
     res.status(200).json(activityById);
   } catch (error) {
-    if (req.app.get('env') === 'development') console.log(error);
+    if (process.env.NODE_ENV === 'development') console.log(error);
 
     res.status(500).json({
       message: 'Error del servidor, contacte al administrador'
