@@ -12,6 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Activity.init({
+    id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4
+    },
     name: DataTypes.STRING,
     image: DataTypes.STRING,
     content: DataTypes.STRING,

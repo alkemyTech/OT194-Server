@@ -1,4 +1,7 @@
 module.exports = {
   create: require('./create'),
-  updateById: require('./updateById')
+  update: require('./updateById'),
+  delete: require('./deleteActivity'),
+  getActivities: require('./getActivities'),
+  getActivityById: require('./getActivityById')
 };

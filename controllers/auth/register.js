@@ -1,6 +1,7 @@
 const bcryptjs = require('bcryptjs');
-const User = require('../../database/models').User;
+const { User } = require('../../database/models');
 const generateToken = require('../../functions/generateToken');
+const mailer = require('../../helpers/mailer');
 
 module.exports = async (req, res) => {
   const { firstName, lastName, email, password, image } = req.body;
@@ -8,9 +9,7 @@ module.exports = async (req, res) => {
   try {
     // Email ya esta registrado?
     const emailExists = await User.findOne({
-      where: {
-        email
-      }
+      where: { email }
     });
 
     if (emailExists) {
@@ -31,6 +30,7 @@ module.exports = async (req, res) => {
     });
 
     const createdUser = {
+      id: userCreated.id,
       firstName,
       lastName,
       email,
@@ -43,27 +43,15 @@ module.exports = async (req, res) => {
   } catch (error) {
     if (req.app.get('env') === 'development') console.log(error);
 
-    res.status(500).json({
+    return res.status(500).json({
       message: 'Error del servidor, contacte al administrador'
     });
   }
-  const sgMail = require('@sendgrid/mail');
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const msg = {
-    to: email,
-    from: {
-      email: process.env.SENGRID_MAIL
-    },
-    subject: 'Gracias por registrarte con nosotros',
-    text: 'Estamos muy felices porque nuestra familia se agranda ! Gracias por ser parte de nosotros',
-    html: '<strong>Estamos muy felices porque nuestra familia se agranda !</strong><normal>! Gracias por ser parte de nosotros</normal>'
-  };
-  sgMail
-    .send(msg)
-    .then(() => {
-    })
-    .catch((error) => {
-      if (req.app.get('env') === 'development') console.log('error', error.response);
-      if (req.app.get('env') === 'development') console.log('body error', error?.response?.body?.errors);
-    });
+
+  mailer(
+    email,
+    'Gracias por registrarte con nosotros',
+    'Estamos muy felices porque nuestra familia se agranda ! Gracias por ser parte de nosotros',
+    '<strong>Estamos muy felices porque nuestra familia se agranda !</strong><normal>! Gracias por ser parte de nosotros</normal>'
+  );
 };
