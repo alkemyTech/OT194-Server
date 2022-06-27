@@ -4,7 +4,7 @@ const generateToken = require('../../functions/generateToken');
 
 module.exports = async (req, res) => {
   const id = req.params.id;
-  const { firstName, lastName, roleId } = req.body;
+  const { firstName, lastName, roleId, email } = req.body;
   const image = (req.files && req.files.file) ? req.files.file : null;
   let uploadedImage;
 
@@ -37,6 +37,7 @@ module.exports = async (req, res) => {
 
     user.firstName = firstName;
     user.lastName = lastName;
+    user.email = email;
     if (image && uploadedImage && uploadedImage.Location) {
       user.image = uploadedImage.Location;
     };

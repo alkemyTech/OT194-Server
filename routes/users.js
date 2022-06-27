@@ -10,6 +10,8 @@ usersRouter.delete('/:id', protectRoute, usersController.delete);
 
 usersRouter.get('/', protectRoute, adminMiddleware, usersController.getAllUsers);
 
+usersRouter.get('/:id', protectRoute, adminMiddleware, usersController.getUserById);
+
 usersRouter.put('/:id',
   protectRoute,
   check('firstName').not().isEmpty().withMessage('Por favor ingrese un nombre'),
