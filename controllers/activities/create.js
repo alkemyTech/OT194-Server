@@ -1,4 +1,4 @@
-const { Activities } = require('../../database/models');
+const { Activity } = require('../../database/models');
 const { uploadFile } = require('../../helpers/uploadFile');
 
 module.exports = async (req, res) => {
@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
       content
     };
 
-    const newActivity = Activities.build(data);
+    const newActivity = Activity.build(data);
     await newActivity.save();
 
     res.status(201).json(newActivity);

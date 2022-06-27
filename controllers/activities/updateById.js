@@ -1,4 +1,4 @@
-const { Activities } = require('../../database/models');
+const { Activity } = require('../../database/models');
 const { uploadFile } = require('../../helpers/uploadFile');
 
 module.exports = async (req, res) => {
@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
   const image = (req.files && req.files.file) ? req.files.file : null;
 
   try {
-    const activityDB = await Activities.findByPk(id);
+    const activityDB = await Activity.findByPk(id);
 
     if (!activityDB) {
       return res.status(404).json({
