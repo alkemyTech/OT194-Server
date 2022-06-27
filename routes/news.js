@@ -15,10 +15,10 @@ newsRouter.put('/:id', [
   adminMiddleware,
   check('name')
     .not().isEmpty().withMessage('Por favor ingrese un nombre')
-    .isLength({ min: 3, max: 240 }),
+    .isLength({ max: 240 }).withMessage('El nombre puede tener un maximo de 240 caracteres'),
   check('content')
     .not().isEmpty().withMessage('Por favor ingrese un contenido')
-    .isLength({ min: 5, max: 240 }),
+    .isLength({ max: 2500 }).withMessage('El contenido puede tener un maximo de 2500 caracteres'),
   validateFields
 ], newsController.updateEntryById);
 
@@ -29,10 +29,10 @@ newsRouter.post('/', [
   adminMiddleware,
   check('name')
     .not().isEmpty().withMessage('Por favor ingrese un nombre')
-    .isLength({ min: 3, max: 240 }),
+    .isLength({ max: 240 }).withMessage('El nombre puede tener un maximo de 240 caracteres'),
   check('content')
     .not().isEmpty().withMessage('Por favor ingrese un contenido')
-    .isLength({ min: 3, max: 240 }),
+    .isLength({ max: 2500 }).withMessage('El contenido puede tener un maximo de 2500 caracteres'),
   validateFields
 ], newsController.createEntry);
 
